@@ -1,6 +1,10 @@
+<img src="https://avatars0.githubusercontent.com/u/23140100?s=200&v=4" width="150">
+
 # self-amd64
 Watson-Intu Self Docker container build for x86 (amd64) 
 Requires sound card, mic, speaker (or headphones), and camera (webcam preferred)
+
+<img src="https://assets.logitech.com/assets/55372/webcam-c270-gallery.png" width="120">   +  <img src="https://images-na.ssl-images-amazon.com/images/I/71yMKM1VW2L._SL1500_.jpg" width="120">   +   <img src="https://www.sabrent.com/uploads/AU-MMSA-Main.jpg" width="120">
 
 ### Build
     docker build --squash --build-arg "mode=dev" -f Dockerfile.x86 -t openhorizon/amd64-x86-intu-self:edge .
