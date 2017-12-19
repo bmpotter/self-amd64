@@ -36,7 +36,7 @@ COPY tc_install.sh /root/src/open-horizon/self/scripts/tc_install.sh
 RUN ./scripts/build_linux.sh
 
 # Sound setup (USB sound card at device 2&3)
-COPY alsa.conf /usr/share/alsa/alsa.conf
+COPY config/alsa.conf /usr/share/alsa/alsa.conf
 
 ## Clean up all files but essential Self binaries
 # Build arg "mode": (blank=standard full size container, "dev": to be used with experimental "docker --squash", for min container size)
