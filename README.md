@@ -15,7 +15,7 @@ Requires sound card, mic, speaker (or headphones), and camera (webcam preferred)
 
 ### Run
 0. Clone this repo, and cd to the ./config directory. Use bootstrap-example.json as a starting point
-1. Set up an IBM account with credentials for Watson services, according to this [guide]()
+1. Set up an IBM account with credentials for Watson services, according to this [guide](https://github.com/open-horizon/self-amd64/wiki/Register-for-Watson-Cloud-Services)
 2. Copy your Watson services credential pwds/URLs into bootstrap-example.json, save as bootstrap.json.
 3. On your x86 system, run `aplay -l` and `arecord -l`, identify the integer number of your sound card.  Edit the alsa.conf file with these values. Save the file.
 4. Run Self in a container, linking your current config files:
