@@ -32,7 +32,7 @@ RUN pip install --no-cache-dir qibuild numpy
 RUN mkdir -p /root/src/open-horizon
 RUN git clone --branch edge --recursive https://github.com/chrod/self.git /root/src/open-horizon/self
 WORKDIR /root/src/open-horizon/self
-COPY tc_install.sh /root/src/chrod/self/scripts/tc_install.sh
+COPY tc_install.sh /root/src/open-horizon/self/scripts/tc_install.sh
 RUN ./scripts/build_linux.sh
 
 # Sound setup (USB sound card at device 2&3)
@@ -42,7 +42,7 @@ COPY alsa.conf /usr/share/alsa/alsa.conf
 # Build arg "mode": (blank=standard full size container, "dev": to be used with experimental "docker --squash", for min container size)
 ARG mode
 RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then pip uninstall -y qibuild && apt -y purge python-pip usbutils gettext unzip cmake build-essential; fi"
-RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then ls /root/src/chrod/self | grep -v bin | xargs rm -rf; fi"
+RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then ls /root/src/open-horizon/self | grep -v bin | xargs rm -rf; fi"
 RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then apt-get -y autoremove; fi"
 
 # Ports
@@ -52,7 +52,7 @@ EXPOSE 9443
 ##############
 ## Configure and run Self with your own creds:
 # cd <self config dir>
-# copy in bootstrap.json file
+# copy in your own bootstrap.json file (use the bootstrap.json example file)
 # Run self:
-# docker run -it --rm --privileged -p 9443:9443 -v $PWD:/configs openhorizon/cogwerx-amd64-x86-self:<version> /bin/bash -c "ln -s -f /configs/bootstrap.json bin/linux/etc/shared/; ln -s -f /configs/alsa.conf /usr/share/alsa/; bin/linux/run_self.sh"
+# docker run -it --rm --privileged -p 9443:9443 -v $PWD/config:/config openhorizon/amd64-x86-intu-self:edge /bin/bash -c "ln -s -f /config/bootstrap.json bin/linux/etc/shared/; ln -s -f /config/alsa.conf /usr/share/alsa/alsa.conf; ./bin/linux/run_self.sh"
 
