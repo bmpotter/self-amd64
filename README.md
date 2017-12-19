@@ -9,10 +9,12 @@ Requires sound card, mic, speaker (or headphones), and camera (webcam preferred)
 ### Build
 
 Dev version (leaves build artifacts in place, retains utilities like vim)   # 5.9GB image
+
     docker build --squash --build-arg "mode=dev" -f Dockerfile.x86 -t openhorizon/amd64-x86-intu-self:edge .
 (omit "--squash" if you're not using docker experimental features)
 
 Prod version (cleans up build artifacts, removes vim and unncessary deps, cleans apt-cache)  # 1.9GB image
+ 
     docker build --squash --build-arg "mode=prod" -f Dockerfile.x86 -t openhorizon/amd64-x86-intu-self .
 
 
