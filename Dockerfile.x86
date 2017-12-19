@@ -32,7 +32,7 @@ RUN pip install --no-cache-dir qibuild numpy
 RUN mkdir -p /root/src/open-horizon
 RUN git clone --branch edge --recursive https://github.com/chrod/self.git /root/src/open-horizon/self
 WORKDIR /root/src/open-horizon/self
-COPY tc_install.sh /root/src/open-horizon/self/scripts/tc_install.sh
+#COPY tc_install.sh /root/src/open-horizon/self/scripts/tc_install.sh
 RUN ./scripts/build_linux.sh
 
 # Sound setup (USB sound card at device 2&3)
