@@ -32,6 +32,6 @@ Prod version (cleans up build artifacts, removes vim and unncessary deps, cleans
 
 4. Run Self in a container, linking your current config files:
 
-    `docker run -it --rm --privileged -p 9443:9443 -v $PWD:/config self-test-edge-x86 /bin/bash -c "ln -s -f /config/bootstrap.json bin/linux/etc/shared/; ln -s -f /config/alsa.conf /usr/share/alsa/alsa.conf; ./bin/linux/run_self.sh"`
+    `docker run -it --rm --privileged -p 9443:9443 -v $PWD:/config openhorizon/amd64-x86-intu-self:edge /bin/bash -c "ln -s -f /config/bootstrap.json bin/linux/etc/shared/; ln -s -f /config/alsa.conf /usr/share/alsa/alsa.conf; ./bin/linux/run_self.sh"`
     
 5. When Self starts, it will verbally greet you. You can browse to `http://localhost:9443/www/dashboard#/` to see the Self dashboard.  (substitute your TX2's IP address in place of "localhost" to visit the UI from another computer on LAN)
