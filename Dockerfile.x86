@@ -1,7 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER dyec@us.ibm.com
 
-# Uses a build arg "mode", defined near bottom
+## Uses a build arg "mode", defined near bottom
+# (blank=standard full size container, "clean": to be used with experimental "docker --squash", for min container size)
+ARG mode
 
 # Install package dependencies
 RUN apt-get update && apt-get install -y apt-utils
@@ -35,15 +37,19 @@ WORKDIR /root/src/open-horizon/self
 #COPY tc_install.sh /root/src/open-horizon/self/scripts/tc_install.sh
 RUN ./scripts/build_linux.sh
 
+# Custom run_self script for IBM Edge
+COPY run_self.sh /root/src/open-horizon/self/bin/linux/
+COPY set_bootstrap_creds.py /root/src/open-horizon/self/bin/linux/
+
 # Sound setup (USB sound card at device 2&3)
 COPY config/alsa.conf /usr/share/alsa/alsa.conf
 
 ## Clean up all files but essential Self binaries
 # Build arg "mode": (blank=standard full size container, "dev": to be used with experimental "docker --squash", for min container size)
-ARG mode
-RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then pip uninstall -y qibuild && apt -y purge python-pip usbutils gettext unzip cmake build-essential; fi"
-RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then ls /root/src/open-horizon/self | grep -v bin | xargs rm -rf; fi"
-RUN /bin/bash -c "if [ 'x$mode' != 'dev' ] ; then apt-get -y autoremove; fi"
+RUN /bin/bash -c "if [ '$mode' != 'dev' ] ; then pip uninstall -y qibuild && apt -y purge python-pip usbutils gettext unzip cmake build-essential; fi"
+RUN /bin/bash -c "if [ '$mode' != 'dev' ] ; then ls /root/src/open-horizon/self | grep -v bin | xargs rm -rf; fi"
+RUN /bin/bash -c "if [ '$mode' != 'dev' ] ; then apt-get -y autoremove; fi"
+COPY test/config/self/exports.sh /root/src/open-horizon/self/bin/linux/
 
 # Ports
 EXPOSE 443
